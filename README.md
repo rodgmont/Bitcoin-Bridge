@@ -1,11 +1,11 @@
 # Bitcoin Bridge 🌉
 
-**Temporal Impact and Adoption Analytics for Local Commerce in El Salvador.**
+**Calculadora de Ventaja Comparativa para Comercio Local.**
 
 ## 📖 Overview
 
-Bitcoin Bridge is a simple, lightweight analytics calculator developed for the **CUBO+ Build Sprint 2026**.
-It helps local merchants understand volatility, pricing impact, and Bitcoin adoption patterns by comparing historical USD vs BTC pricing.
+Bitcoin Bridge es una herramienta técnica y analítica desarrollada para el **CUBO+ Build Sprint 2026**.
+Su objetivo oficial es analizar puramente los beneficios y ventajas del ahorro y uso de Bitcoin frente al sistema tradicional de dólares.
 
 ## ✨ Features
 
