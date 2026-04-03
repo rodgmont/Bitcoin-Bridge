@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Bridge | Temporal Impact & Adoption Analytics</title>
+    
+    <!-- Meta Descriptions for SEO -->
+    <meta name="description" content="A powerful calculator and analytics tool for local commerce in El Salvador. Compare USD vs BTC pricing over time to understand volatility and adoption.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="./styles/output.css">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#F7931A', // Bitcoin Orange
+                        secondary: '#4F46E5', // Indigo
+                        dark: {
+                            900: '#0B0F19',
+                            800: '#111827',
+                            700: '#1F2937'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen font-sans antialiased bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-dark-800 via-dark-900 to-black overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 backdrop-blur-md bg-dark-900/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-heading font-bold text-white shadow-[0_0_15px_rgba(247,147,26,0.5)]">₿</div>
+                    <span class="font-heading font-bold text-xl tracking-tight text-white">Bitcoin <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-yellow-300">Bridge</span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Hero Section -->
+        <div class="text-center mb-16 animate-fade-in">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold mb-4">
+                Calculate the <span class="bg-pulse text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-primary">Temporal Impact</span>
+            </h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+                Empowering local commerce in El Salvador. Compare USD vs BTC pricing over time to understand volatility, gains, and adoption impact.
+            </p>
+        </div>
+
+        <!-- Dashboard Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Calculator Card -->
+            <div class="lg:col-span-4 animate-slide-up" style="animation-delay: 0.1s;">
+                <div class="glass-card rounded-2xl p-6 border border-white/10 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    
+                    <h2 class="text-2xl font-heading font-bold mb-6 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        Impact Calculator
+                    </h2>
+                    
+                    <form id="calculatorForm" class="space-y-5 relative z-10">
+                        <div>
+                            <label for="usdAmount" class="block text-sm font-medium text-gray-300 mb-1">Initial Amount (USD)</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 font-medium">$</span>
+                                </div>
+                                <input type="number" id="usdAmount" name="usdAmount" step="0.01" min="0" required
+                                    class="input-field block w-full pl-8 pr-3 py-3 border border-gray-700 rounded-xl bg-dark-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                    placeholder="Amount charged">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="transactionDate" class="block text-sm font-medium text-gray-300 mb-1">Transaction Date</label>
+                            <input type="date" id="transactionDate" name="transactionDate" required
+                                class="input-field block w-full px-4 py-3 border border-gray-700 rounded-xl bg-dark-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                        </div>
+
+                        <button type="submit" id="compareBtn"
+                            class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-gradient-to-r from-primary to-orange-500 hover:from-orange-500 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-dark-900 transform transition hover:-translate-y-1 mt-4">
+                            <span>Compare Impact</span>
+                            <svg class="ml-2 -mr-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                    </form>
+                    
+                    <!-- Loading State -->
+                    <div id="loadingIndicator" class="hidden absolute inset-0 bg-dark-900/80 backdrop-blur-sm z-20 flex flex-col items-center justify-center rounded-2xl">
+                        <div class="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+                        <span class="mt-3 text-sm font-medium text-gray-300">Calculating impact...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results & Analytics -->
+            <div class="lg:col-span-8 flex flex-col gap-6 animate-slide-up" style="animation-delay: 0.2s;">
+                
+                <!-- KPI Cards -->
+                <div id="resultsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4 opacity-50 transition-opacity duration-300">
+                    <!-- BTC Then -->
+                    <div class="glass-card rounded-xl p-5 border border-white/10 flex flex-col">
+                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">BTC Acquired Then</span>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span id="btcThenValue" class="text-2xl font-bold text-white">0.00</span>
+                            <span class="text-sm text-primary font-medium">BTC</span>
+                        </div>
+                    </div>
+                    
+                    <!-- USD Now -->
+                    <div class="glass-card rounded-xl p-5 border border-white/10 flex flex-col">
+                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Current USD Value</span>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span class="text-xl text-gray-400">$</span>
+                            <span id="btcNowValue" class="text-2xl font-bold text-white">0.00</span>
+                        </div>
+                    </div>
+                    
+                    <!-- % Difference -->
+                    <div id="diffCard" class="glass-card rounded-xl p-5 border border-white/10 flex flex-col transition-colors duration-300">
+                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Impact (Profit/Loss)</span>
+                        <div class="mt-2 flex items-baseline gap-2">
+                            <span id="diffValue" class="text-2xl font-bold text-white">0.00%</span>
+                            <span id="diffIndicator" class="text-sm rounded-full px-2 py-0.5 bg-gray-800 text-gray-400">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Container -->
+                <div class="glass-card rounded-2xl p-6 border border-white/10 flex-grow relative overflow-hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-heading font-semibold">Value Comparison Over Time</h3>
+                        <div class="flex gap-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-300">
+                                <span class="w-2 h-2 rounded-full bg-gray-400"></span> USD Original
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary">
+                                <span class="w-2 h-2 rounded-full bg-primary"></span> BTC Value (USD)
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="relative h-64 w-full">
+                        <canvas id="impactChart"></canvas>
+                        
+                        <!-- Empty State Chart Overlay -->
+                        <div id="chartOverlay" class="absolute inset-0 flex items-center justify-center bg-dark-900/40 backdrop-blur-[2px] transition-opacity duration-300">
+                            <p class="text-gray-400 text-sm font-medium">Enter details and compare to see analytics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="./src/api.js"></script>
+    <script src="./src/main.js"></script>
+</body>
+</html>

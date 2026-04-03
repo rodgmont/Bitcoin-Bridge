@@ -1,0 +1,38 @@
+/* Custom utilities to supplement Tailwind CDN */
+
+.glass-card {
+    background: rgba(17, 24, 39, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.bg-pulse {
+    animation: pulse-gradient 3s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes pulse-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Custom Scrollbar for better aesthetics */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4B5563;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6B7280;
+}
