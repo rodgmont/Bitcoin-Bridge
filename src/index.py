@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import btc
+from src.routes import btc
 
 app = FastAPI(
     title="Bitcoin Bridge API",

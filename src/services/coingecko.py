@@ -1,6 +1,6 @@
 import httpx
 from datetime import date
-from api.utils.cache import cache
+from src.utils.cache import cache
 
 COINGECKO_BASE_URL = "https://api.coingecko.com/api/v3"
 
