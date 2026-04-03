@@ -3,8 +3,8 @@ from datetime import date
 from pydantic import ValidationError
 import httpx
 
-from app.models.schemas import CalculateRequest, CalculateResponse, PriceResponse
-from app.services.coingecko import get_current_btc_price, get_historical_btc_price
+from api.models.schemas import CalculateRequest, CalculateResponse, PriceResponse
+from api.services.coingecko import get_current_btc_price, get_historical_btc_price
 
 router = APIRouter(prefix="/api/btc", tags=["Bitcoin Analytics"])
 
