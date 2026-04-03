@@ -1,4 +1,7 @@
-const API_BASE = 'http://localhost:8000/api';
+// Detect if running locally (e.g., port 3000) or on Vercel
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? 'http://localhost:8000/api' 
+    : '/api';
 
 class ApiService {
     static async getCurrentPrice() {
